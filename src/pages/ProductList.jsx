@@ -22,7 +22,6 @@ function ProductList() {
         productService.getProducts().then(result => setProducts(result.data.data))
     })
 
-
     return (
         <div>
             <Table celled>
@@ -37,13 +36,13 @@ function ProductList() {
                 </TableHeader>
 
                 <TableBody>
-                    {products.map(product => (
-                        <TableRow>
-                            <TableCell>product.productName</TableCell>
-                            <TableCell>product.unitPrice</TableCell>
-                            <TableCell>product.unitsInStock</TableCell>
-                            <TableCell>product.quantityPerUnit</TableCell>
-                            <TableCell>product.category.categoryName</TableCell>
+                    {products.map((product) => (
+                        <TableRow key={product.id}>
+                            <TableCell>{product.productName}</TableCell>
+                            <TableCell>{product.unitPrice}</TableCell>
+                            <TableCell>{product.unitsInStock}</TableCell>
+                            <TableCell>{product.quantityPerUnit}</TableCell>
+                            <TableCell>{product.category.categoryName}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

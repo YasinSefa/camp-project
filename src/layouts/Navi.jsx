@@ -8,12 +8,17 @@ import {
 import CartSummary from './CartSummary'
 import SignedIn from './SignedIn'
 import SignedOut from './SignedOut'
+import { useNavigate } from 'react-router-dom';
+
+
 
 function Navi() {
     const [isAuthenticated, setIsAuthenticated] = useState(true)
+    const navigate = useNavigate()
 
     function handleSignOut(params) {
         setIsAuthenticated(false)
+        navigate("/")
     }
 
     function handleSignIn(params) {

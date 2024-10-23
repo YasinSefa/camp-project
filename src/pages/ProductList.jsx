@@ -10,18 +10,28 @@ import {
     Icon,
     Menu,
     Table,
+    Button,
 } from 'semantic-ui-react'
 import ProductService from '../services/productService'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../store/actions/cartActions'
+import { toast } from 'react-toastify'
+
 
 function ProductList() {
-
+    const dispatch = useDispatch()
     const [products, setProducts] = useState([])
 
     useEffect(() => {
         let productService = new ProductService()
         productService.getProducts().then(result => setProducts(result.data.data))
     }, [])
+
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product))
+        toast.success(`${product.productName}`)
+    }
 
     return (
         <div>
@@ -33,6 +43,7 @@ function ProductList() {
                         <TableHeaderCell>Stok Adedi</TableHeaderCell>
                         <TableHeaderCell>Açıklama</TableHeaderCell>
                         <TableHeaderCell>Kategori</TableHeaderCell>
+                        <TableHeaderCell></TableHeaderCell>
                     </TableRow>
                 </TableHeader>
 
@@ -44,6 +55,7 @@ function ProductList() {
                             <TableCell>{product.unitsInStock}</TableCell>
                             <TableCell>{product.quantityPerUnit}</TableCell>
                             <TableCell>{product.category.categoryName}</TableCell>
+                            <TableCell><Button onClick={() => handleAddToCart(product)}>Sepete Ekle</Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
